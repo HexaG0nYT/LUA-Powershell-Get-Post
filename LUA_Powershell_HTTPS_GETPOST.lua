@@ -15,10 +15,16 @@ function get(link,headers)
     command='powershell "'..command:gsub('"','\\"')..'"'
     local status = io.popen(command):read('*a')
     if status~='' then
-        res['statuscode']=status:match('[%d]+\n'):sub(1,-2)
-        res['statusdescription']=status:match('[%w]+\n'):sub(1,-2)
-        res['content']=status:sub(#res['statuscode']+#res['statusdescription']+2)
-        return res
+        for i in status:gmatch('[^\n]+') do
+            if not res['statuscode'] then
+                res['statuscode']=tonumber(i)
+            elseif not res['statusdescription'] then
+                res['statusdescription']=i
+            else
+                break
+            end
+        end
+        res['content']=status:sub(#res['statuscode']+#res['statusdescription']+3)
     end
 end
 
@@ -37,7 +43,7 @@ function post(url, params)
     if status~='' then
         for i in status:gmatch('[^\n]+') do
             if not res['statuscode'] then
-                res['statuscode']=i
+                res['statuscode']=tonumber(i)
             elseif not res['statusdescription'] then
                 res['statusdescription']=i
             else
