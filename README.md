@@ -1,2 +1,12 @@
 # LUA-Powershell-Get-Post
-post get using powershell function in lua UHDEsew8waey87fweyt7fwgeuoifug
+HTTPS POST/Get using powershell, function made in LUA
+
+### Requirements : Powershell 3+ \[ so u can use invoke-webrequest \]
+
+#### How to use :
+```lua
+get('URL', <OPTIONAL>[headers])
+post('URL', params)
+```
+
+i might add proxy sometime AWAWAWAWAWA
