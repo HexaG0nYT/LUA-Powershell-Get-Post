@@ -17,7 +17,7 @@ function get(link,headers)
     if status~='' then
         for i in status:gmatch('[^\n]+') do
             if not res['statuscode'] then
-                res['statuscode']=tonumber(i)
+                res['statuscode']=i
             elseif not res['statusdescription'] then
                 res['statusdescription']=i
             else
@@ -25,6 +25,8 @@ function get(link,headers)
             end
         end
         res['content']=status:sub(#res['statuscode']+#res['statusdescription']+3)
+        res['statuscode']=tonumber(res['statuscode'])
+        return res
     end
 end
 
@@ -51,6 +53,7 @@ function post(url, params)
             end
         end
         res['content']=status:sub(#res['statuscode']+#res['statusdescription']+3)
+        res['statuscode']=tonumber(res['statuscode'])
         return res
     end
 end
