@@ -45,7 +45,7 @@ function post(url, params)
     if status~='' then
         for i in status:gmatch('[^\n]+') do
             if not res['statuscode'] then
-                res['statuscode']=tonumber(i)
+                res['statuscode']=i
             elseif not res['statusdescription'] then
                 res['statusdescription']=i
             else
